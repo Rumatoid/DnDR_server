@@ -2,6 +2,7 @@ const postModel = require('../models/post');
 
 class postController {
   index(req, res) {
+    console.log('lol');
     postModel.find((err, posts) => {
       if (err) {
         res.send(err);
