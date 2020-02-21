@@ -1,13 +1,12 @@
-const postModel = require('../models/post');
+const userModel = require('../models/user');
 
-class postController {
+class userController {
   index(req, res) {
-    console.log('lol');
-    postModel.find((err, posts) => {
+    userModel.find((err, users) => {
       if (err) {
         res.send(err);
       } else {
-        res.json(posts);
+        res.json(users);
       }
     });
   }
@@ -15,28 +14,28 @@ class postController {
   create(req, res) {
     const data = req.body;
 
-    const post = new postModel({
-      title: data.title,
-      text: data.text
+    const user = new userModel({
+      username: data.username,
+      password: data.password
     });
 
-    post.save().then(() => {
+    user.save().then(() => {
       res.send({ status: 'ok!' });
     });
   }
 
   read(req, res) {
-    postModel.findOne({ _id: req.params.id }, (err, post) => {
-      if (!post) {
+    userModel.findOne({ _id: req.params.id }, (err, user) => {
+      if (!user) {
         res.send({ error: err });
       } else {
-        res.json(post);
+        res.json(user);
       }
     });
   }
 
   update(req, res) {
-    postModel.findByIdAndUpdate(req.params.id, { $set: req.body }, err => {
+    userModel.findByIdAndUpdate(req.params.id, { $set: req.body }, err => {
       if (err) {
         res.send(err);
       }
@@ -46,7 +45,7 @@ class postController {
   }
 
   delete(req, res) {
-    postModel.deleteOne({ _id: req.params.id }, err => {
+    userModel.deleteOne({ _id: req.params.id }, err => {
       if (err) {
         res.send(err);
       }
@@ -56,4 +55,4 @@ class postController {
   }
 }
 
-module.exports = new postController();
+module.exports = new userController();
