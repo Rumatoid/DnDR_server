@@ -35,13 +35,17 @@ class userController {
   }
 
   update(req, res) {
-    userModel.findOneAndUpdate(req.params.username, { $set: req.body }, err => {
-      if (err) {
-        res.send(err);
-      }
+    userModel.findOneAndUpdate(
+      { username: req.params.username },
+      { $set: req.body },
+      err => {
+        if (err) {
+          res.send(err);
+        }
 
-      res.send('updated');
-    });
+        res.send('updated');
+      }
+    );
   }
 
   delete(req, res) {
