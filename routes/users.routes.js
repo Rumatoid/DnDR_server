@@ -7,8 +7,8 @@ router.use(express.json());
 
 router.get('/', usersController.index);
 router.post('/', usersController.create);
-router.get('/:id', usersController.read);
-router.delete('/:id', usersController.delete);
-router.put('/:id', usersController.update);
+router.get('/:username', usersController.read);
+router.delete('/:username', usersController.delete);
+router.put('/:username', usersController.update);
 
 module.exports = router;

@@ -20,12 +20,12 @@ class userController {
     });
 
     user.save().then(() => {
-      res.send({ status: 'ok!' });
+      res.send(user._id);
     });
   }
 
   read(req, res) {
-    userModel.findOne({ _id: req.params.id }, (err, user) => {
+    userModel.findOne({ username: req.params.username }, (err, user) => {
       if (!user) {
         res.send({ error: err });
       } else {
@@ -35,7 +35,7 @@ class userController {
   }
 
   update(req, res) {
-    userModel.findByIdAndUpdate(req.params.id, { $set: req.body }, err => {
+    userModel.findOneAndUpdate(req.params.username, { $set: req.body }, err => {
       if (err) {
         res.send(err);
       }
@@ -45,7 +45,7 @@ class userController {
   }
 
   delete(req, res) {
-    userModel.deleteOne({ _id: req.params.id }, err => {
+    userModel.deleteOne({ username: req.params.username }, err => {
       if (err) {
         res.send(err);
       }
