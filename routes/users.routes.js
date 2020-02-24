@@ -7,7 +7,8 @@ router.use(express.json());
 
 router.get('/', usersController.index);
 router.post('/', usersController.create);
-router.get('/:username', usersController.read);
+router.get('/:token', usersController.checkToken);
+router.post('/:username', usersController.login);
 router.delete('/:username', usersController.delete);
 router.put('/:username', usersController.update);
 

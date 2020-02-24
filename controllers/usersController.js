@@ -1,4 +1,5 @@
 const userModel = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 class userController {
   index(req, res) {
@@ -19,13 +20,25 @@ class userController {
       password: data.password
     });
 
-    user.save().then(() => {
-      res.send(user._id);
+    user.save();
+  }
+
+  login(req, res) {
+    userModel.findOne({ username: req.params.username }, (err, user) => {
+      if (!user) {
+        res.send({ error: err });
+      } else {
+        const token = jwt.sign(user.username, 'Rumatoid');
+
+        res.json({ user, token });
+      }
     });
   }
 
-  read(req, res) {
-    userModel.findOne({ username: req.params.username }, (err, user) => {
+  checkToken(req, res) {
+    const username = jwt.verify(req.params.token, 'Rumatoid');
+
+    userModel.findOne({ username }, (err, user) => {
       if (!user) {
         res.send({ error: err });
       } else {
