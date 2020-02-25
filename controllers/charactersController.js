@@ -13,12 +13,12 @@ class characterController {
 
   create(req, res) {
     const character = new characterModel({
-      name: Math.random(),
+      name: 'New Character',
       username: req.params.username
     });
 
     character.save().then(resp => {
-      res.json(character._id);
+      res.json({ name: character.name, id: character._id });
     });
   }
 
@@ -29,11 +29,11 @@ class characterController {
         if (!characters) {
           res.send({ error: err });
         } else {
-          let result = [];
+          let arrToSend = [];
           characters.map(character => {
-            result.push(character.name);
+            arrToSend.push({ name: character.name, id: character._id });
           });
-          res.json(result);
+          res.json(arrToSend);
         }
       }
     );
@@ -57,6 +57,7 @@ class characterController {
     characterModel.deleteOne({ _id: req.params.id }, err => {
       if (err) {
         res.send(err);
+        return 0;
       }
 
       res.send('deleted');
