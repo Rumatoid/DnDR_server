@@ -36,15 +36,16 @@ class userController {
   }
 
   checkToken(req, res) {
-    const username = jwt.verify(req.params.token, 'Rumatoid');
-
-    userModel.findOne({ username }, (err, user) => {
-      if (!user) {
-        res.send({ error: err });
-      } else {
-        res.json(user);
-      }
-    });
+    try {
+      const username = jwt.verify(req.params.token, 'Rumatoid');
+      userModel.findOne({ username }, (err, user) => {
+        if (!user) {
+          res.send({ error: err });
+        } else {
+          res.json(user);
+        }
+      });
+    } catch (err) {}
   }
 
   update(req, res) {
