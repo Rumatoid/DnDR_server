@@ -20,7 +20,14 @@ class userController {
       password: data.password
     });
 
-    user.save();
+    userModel.findOne({ username: data.username }, (err, userFind) => {
+      if (!userFind) {
+        user.save();
+        res.json(null);
+      } else {
+        res.json(user);
+      }
+    });
   }
 
   login(req, res) {
