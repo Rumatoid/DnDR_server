@@ -10,8 +10,4 @@ router.post('/:username', charactersController.create);
 router.get('/:username', charactersController.getNames);
 router.delete('/:id', charactersController.delete);
 
-//TODO переделать функции!
-// router.post('/:username', charactersController.login);
-// router.put('/:username', charactersController.update);
-
 module.exports = router;
