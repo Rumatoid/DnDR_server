@@ -52,7 +52,9 @@ class userController {
           res.json(user);
         }
       });
-    } catch (err) {}
+    } catch (err) {
+      res.json(undefined);
+    }
   }
 
   update(req, res) {
